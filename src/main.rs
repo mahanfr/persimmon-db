@@ -1,5 +1,8 @@
-fn main() {
-    println!("Hello, world!");
-}
+#[path = "../test/files.rs"]
+mod test;
+#[path = "database/database.rs"]
+mod db;
 
-#[path = "test/main.rs"] mod test;
+fn main() {
+
+}
