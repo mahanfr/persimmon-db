@@ -1,6 +1,5 @@
 use std::{fs::File, io::{Write, Read}};
 
-
 pub(crate) struct DataBase {
     key: String,
     value: String,
@@ -15,15 +14,11 @@ impl DataBase {
         if !dir.exists() {
             std::fs::create_dir_all(dir).unwrap();
         }
-        let mut file = match File::create(path) {
+        match File::create(path) {
             Ok(file) => file,
             Err(error) => panic!("Could not create file: {}", error),
         };
 
-        match file.write_all(b"Hello, world!") {
-            Ok(_) => println!("File written successfully."),
-            Err(error) => panic!("Could not write to file: {}", error),
-        }
         let db = DataBase {
             key: key.to_string(),
             value: value.to_string(),
@@ -32,17 +27,20 @@ impl DataBase {
         db
     }
 
+    // inserting to a database by replacing contents of struct and file
     pub fn insert(&mut self, value:String) {
         self.set_value(value);
         let mut file = File::options().read(true).write(true).open(self.get_path()).unwrap();
         let _ = file.write_all(self.get_value().as_bytes());
     }
 
+    //remove the database files and only keep it in memory
     pub fn remove(&self) {
         // Remove a file
         std::fs::remove_file(&self.path).unwrap();
     }
 
+    // get data stored in database from file
     pub fn get_stored_value(&self) -> String {
         let mut file = File::options().read(true).open(self.get_path()).unwrap();
         let mut buffer = String::new();

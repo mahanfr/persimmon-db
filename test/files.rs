@@ -37,7 +37,15 @@ mod tests {
   fn get_stored_value() {
     let mut db = db::DataBase::create("test4", "test4");
     db.insert("Hello".to_string());
-    assert_eq!(db.get_stored_value(), "Hello, world!".to_string());
+    assert_eq!(db.get_stored_value(), "Hello".to_string());
+    db.remove();
+  }
+
+  #[test]
+  fn check_if_value_equals_stored_value() {
+    let mut db = db::DataBase::create("test5", "test5");
+    db.insert("Hello".to_string());
+    assert_eq!(db.get_value(), "Hello");
     db.remove();
   }
 
