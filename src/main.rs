@@ -1,5 +1,3 @@
-use std::error::Error;
-
 use tokio::{net::{TcpListener, TcpStream}, io::AsyncReadExt};
 
 #[path = "../test/files.rs"]
@@ -104,9 +102,9 @@ async fn parse_request(buffer:&[u8]) -> Box<Message> {
         parse_flags(as_u32_be(&[buffer[16],buffer[17],buffer[18],buffer[19]]));
     let value_len ;
     if checksum_present {
-        value_len = len - 20;
+        value_len = len - 4;
     } else {
-        value_len = len - 16;
+        value_len = len;
     }
     let value = String::from_utf8_lossy(&buffer[20..(value_len) as usize]).to_string();
     let checksum = if checksum_present {
