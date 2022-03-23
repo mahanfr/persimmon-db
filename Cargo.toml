@@ -7,7 +7,7 @@ edition = "2018"
 
 [dependencies]
 tokio = { version = "1", features = ["full"] }
-
+serde_json = "1.0"
 
 [dev-dependencies]
 cargo-husky = "1"
