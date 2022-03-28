@@ -1,37 +1,28 @@
-use std::fs;
-use std::io::Write;
-use std::path::Path;
+use std::{fs};
+use std::io::{Write};
 use serde_json::{Value, Number};
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::time::{SystemTime, UNIX_EPOCH};
 use std::process;
+mod file_system;
 
 pub struct Database {
     pub name: String,
     directory: String,
-}
+    // TODO: add a collection map
+    
+}   
 
+// Database struct methods
 impl Database {
 
+    // create a new database
+    // creates a folder for the database and returns a Database struct
     pub fn create(name: &str) -> Database {
         let dir_name: &str = &("data/db-".to_owned() + name);
 
-        match fs::create_dir_all(dir_name) {
-            Err(why) => panic!("couldn't create directory: {}", why),
-            Ok(_) => println!("successfully created database directory"),
-        }
-
-        // check if a file exist inside the directory
-        if Path::new(&(dir_name.to_owned() + &"/.init".to_owned())).exists() {
-            println!("database init file already exists");
-        }else {
-            // create a init file
-            match fs::File::create(&(dir_name.to_owned() + &"/.init".to_owned())) {
-                Err(why) => panic!("database couldn't create init file: {}", why),
-                Ok(_) => println!("database init file created"),
-            }
-        }
+        file_system::create_database(name);
 
         Database {
             name: name.to_owned(),
@@ -39,26 +30,19 @@ impl Database {
         }
     }
 
+    // creates a collection file inside the database directory
     pub fn create_collection(&self, name: &str) {
-
-        if Path::new(&(self.directory.to_owned() +"/"+ &name.to_owned() + &".paradb".to_owned())).exists() {
-            println!("database init file already exists");
-        }else{
-            match fs::File::create(&(self.directory.to_owned() +"/" +&name.to_owned() + &".paradb".to_owned())) {
-                Err(why) => panic!("database couldn't create init file: {}", why),
-                Ok(_) => println!("database init file created"),
-            }
-        }
-
+        file_system::create_collection(&self.name, name);
     }
 
-    pub fn insert(&self, collection: &str, document: &str) {
+    // insert data inside collection file
+    pub fn insert(& mut self, collection: &str, document: &str) {
         let file_name: &str = &(self.directory.to_owned() +"/" +&collection.to_owned() + &".paradb".to_owned());
         match fs::OpenOptions::new().append(true).open(file_name) {
             Err(why) => panic!("couldn't open file: {}", why),
             Ok(mut file) => {
-                let mut value : Value = serde_json::from_str(document).unwrap();
                 
+                let mut value : Value = serde_json::from_str(document).unwrap();
                 match value {
                     Value::Object(ref mut map) => {
                         map.insert("_id".to_owned(), Value::Number(Number::from(create_unique_id(collection))));
@@ -67,7 +51,11 @@ impl Database {
                         panic!("failed to add id: document is not an object");
                     }
                 }
-            
+                
+                // let len = file.metadata().unwrap().len();
+                
+
+                // TODO: make main db file also searchable just in case!
                 match file.write_all(value.to_string().as_bytes()) {
                     Err(why) => panic!("couldn't write to file: {}", why),
                     Ok(_) => println!("successfully wrote to file"),
@@ -75,12 +63,13 @@ impl Database {
             }
         }
     }
+
 }
 
 fn create_unique_id(collection: &str) -> u64 {
     let mut s = DefaultHasher::new();
     collection.hash(&mut s);
-    s.finish() 
-        - SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs() 
-        + process::id() as u64
+    s.write_u32(process::id());
+    s.write_u128(SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_millis());
+    s.finish()
 }
