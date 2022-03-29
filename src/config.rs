@@ -27,7 +27,7 @@ impl Default for Config {
 
 impl Config {
   pub fn create() -> Config {
-      if Path::new("./data/.config").exists() {
+      if Path::new("./data/service.conf").exists() {
         println!("reading config from file");
         return load_config();
       }
@@ -48,7 +48,7 @@ impl Config {
       let mut file = fs::OpenOptions::new()
         .append(true)
         .create(true)
-        .open("./data/.config")
+        .open("./data/service.conf")
         .unwrap();
 
       file.write_all(config.as_bytes()).unwrap();
@@ -59,7 +59,7 @@ impl Config {
 fn load_config() -> Config {
     let mut file = fs::OpenOptions::new()
         .read(true)
-        .open("./data/.config")
+        .open("./data/service.conf")
         .unwrap();
     let mut buffer = String::new();
     match file.read_to_string(&mut buffer) {

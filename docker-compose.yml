@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  dev:
+    image: "rust:1.59"
+    volumes:
+      - ./:/project
+      - ./.cargo:/usr/local/cargo/registry
+    ports:
+      - "27069:27069"
+      - "28069:28069"
+      - "29069:29069"
+    environment:
+      - USER=mahan
