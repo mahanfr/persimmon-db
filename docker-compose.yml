@@ -4,7 +4,7 @@ services:
     image: "rust:1.59"
     volumes:
       - ./:/project
-      - ./.cargo:/usr/local/cargo/registry
+      - /docker/.cargo:/usr/local/cargo/registry
     ports:
       - "27069:27069"
       - "28069:28069"
