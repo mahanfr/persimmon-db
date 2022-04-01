@@ -5,6 +5,8 @@ use config::Config;
 mod database;
 mod shell;
 mod config;
+#[path="storage/storage_manager.rs"]
+mod storage_manager;
 // #[path="storage/storage_manager.rs"]
 // mod storage_manager;
 

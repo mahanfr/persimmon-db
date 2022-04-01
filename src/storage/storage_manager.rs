@@ -1,29 +1,48 @@
-use std::{fs, io::{Write, SeekFrom, Seek, Read}, vec, convert::TryInto};
+use std::{
+    fs,
+    io::{Read, Write, Error},
+    vec
+};
 
-
-#[path="./test.rs"]
+#[path = "./test.rs"]
 mod test;
 
 const PAGE_SIZE: usize = 4096;
 
-fn create_page(path: &str) {
-    // fill 4k file with null bytes
-    let mut file = fs::OpenOptions::new()
-        .append(true)
-        .create(true)
-        .open(path)
-        .unwrap();
-    let mut buffer = vec![0; PAGE_SIZE];
-    file.write_all(&mut buffer).unwrap();
+struct StorageManager {
+    dictionary: [u8; PAGE_SIZE],
+    file: fs::File,
 }
 
-fn get_page(path: &str , page_number: usize) -> vec::Vec<u8> {
-    let mut file = fs::OpenOptions::new()
+impl StorageManager {
+    fn collect(path: &str) -> Result<StorageManager, Error> {
+      let mut file = fs::OpenOptions::new()
+        .append(true)
         .read(true)
-        .open(path)
-        .unwrap();
-    let mut buffer = vec![0; PAGE_SIZE];
-    file.seek(SeekFrom::Start((page_number * PAGE_SIZE).try_into().unwrap())).unwrap();
-    file.read_exact(&mut buffer).unwrap();
-    buffer
+        .write(true)
+        .create(true)
+        .open(path)?;
+        
+      let mut page_dictionary : [u8; PAGE_SIZE] = [0; PAGE_SIZE];
+      
+      if file.metadata()?.len() == 0  {
+        file.write_all(vec![0; PAGE_SIZE].as_slice())?;
+      }else{
+        file.read_exact(&mut page_dictionary).unwrap();
+      }
+
+      Ok(StorageManager {
+        dictionary: page_dictionary,
+        file,
+      })
+    }
+
+    fn append_page(mut self) -> Result<(),Error> {
+        // fill 4k file with null bytes
+
+        let mut buffer = vec![0; PAGE_SIZE];
+        self.file.write_all(&mut buffer).unwrap();
+        Ok(())
+    }
+
 }
