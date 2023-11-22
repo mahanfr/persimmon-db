@@ -7,6 +7,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use std::process;
 mod file_system;
 
+#[derive(Debug)]
 pub struct Database {
     pub name: String,
     directory: String,
