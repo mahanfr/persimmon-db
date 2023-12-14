@@ -10,7 +10,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/mahanfarzaneh2000/">
+  <a href="https://github.com/mahanfr/">
     <img src="assets/Persimmon-db.png" alt="Persimmon - Database Management System" height="150">
   </a>
   
@@ -19,9 +19,9 @@
   <p align="center">
     Lightweight SQL Database Management System for Small-Scale Applications
     <br />
-    <a href="https://github.com/mahanfarzaneh2000/persimmon-db/issues">Report Bug</a>
+    <a href="https://github.com/mahanfr/persimmon-db/issues">Report Bug</a>
     ·
-    <a href="https://github.com/mahanfarzaneh2000/persimmon-db/issues">Request Feature</a>
+    <a href="https://github.com/mahanfr/persimmon-db/issues">Request Feature</a>
   </p>
 </div>
 
@@ -29,7 +29,7 @@
 
 Databases are one of the most important parts of a web application; so important that if they suddenly disappear, all backend developers will cry! so I am making my own just in case :)
 
-See the [open issues](https://github.com/mahanfarzaneh2000/persimmon-db/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/mahanfr/persimmon-db/issues) for a full list of proposed features (and known issues).
 
 
 ## Contributing
@@ -50,16 +50,16 @@ Don't forget to give the project a star! Thanks again!
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
-[contributors-shield]: https://img.shields.io/github/contributors/mahanfarzaneh2000/persimmon-db.svg?style=for-the-badge
-[contributors-url]: https://github.com/mahanfarzaneh2000/persimmon-db/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/mahanfarzaneh2000/persimmon-db.svg?style=for-the-badge
-[forks-url]: https://github.com/mahanfarzaneh2000/persimmon-db/network/members
-[stars-shield]: https://img.shields.io/github/stars/mahanfarzaneh2000/persimmon-db.svg?style=for-the-badge
-[stars-url]: https://github.com/mahanfarzaneh2000/persimmon-db/stargazers
-[issues-shield]: https://img.shields.io/github/issues/mahanfarzaneh2000/persimmon-db.svg?style=for-the-badge
-[issues-url]: https://github.com/mahanfarzaneh2000/persimmon-db/issues
-[license-shield]: https://img.shields.io/github/license/mahanfarzaneh2000/persimmon-db.svg?style=for-the-badge
-[license-url]: https://github.com/mahanfarzaneh2000/persimmon-db/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/mahanfr/persimmon-db.svg?style=for-the-badge
+[contributors-url]: https://github.com/mahanfr/persimmon-db/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/mahanfr/persimmon-db.svg?style=for-the-badge
+[forks-url]: https://github.com/mahanfr/persimmon-db/network/members
+[stars-shield]: https://img.shields.io/github/stars/mahanfr/persimmon-db.svg?style=for-the-badge
+[stars-url]: https://github.com/mahanfr/persimmon-db/stargazers
+[issues-shield]: https://img.shields.io/github/issues/mahanfr/persimmon-db.svg?style=for-the-badge
+[issues-url]: https://github.com/mahanfr/persimmon-db/issues
+[license-shield]: https://img.shields.io/github/license/mahanfr/persimmon-db.svg?style=for-the-badge
+[license-url]: https://github.com/mahanfr/persimmon-db/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/mahanfarzaneh
 [product-screenshot]: assets/persimmon-db.png
